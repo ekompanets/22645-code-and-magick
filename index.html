@@ -169,5 +169,37 @@
   </div>
 </template>
 
+<script>
+  var fireballSize = 22;
+  var wizardSpeed = 3;
+  var wizardWidth = 70;
+
+// определяем скорость файрбола
+  var getFireballSpeed = function(left){
+    if (left) {
+      return 5;
+    }
+    else {
+      return 2;
+    }
+  }
+
+// находим высоту мага 
+  var getWizardHeight  = function(){
+    return wizardWidth*1.337;
+  }
+
+// определяем положение мага по Х
+  var getWizardX = function(width){
+    return width/2-wizardWidth/2;
+  }
+
+// определяем положение мага по Y
+  var getWizardY = function(height){
+    return height/3 - getWizardHeight()/2 ;
+  }
+</script>
+
+<script src="js/game.js"></script>
 </body>
 </html>
