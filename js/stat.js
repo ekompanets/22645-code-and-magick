@@ -56,8 +56,7 @@ window.renderStatistics = function (ctx, names, times) {
 
     // проверяем игрока на совпадение с "Вы"
     if (i === iYou) {
-      ctx.fillStyle = colorYou;
-    }
+      ctx.fillStyle = colorYou; }
     else {
       if ((colorTransparency = Math.random().toFixed(1)) === 0) {
         colorTransparency = 0.1;
