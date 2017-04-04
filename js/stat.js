@@ -56,13 +56,12 @@ window.renderStatistics = function (ctx, names, times) {
 
     // проверяем игрока на совпадение с "Вы"
     if (i === iYou) {
-      ctx.fillStyle = colorYou; 
+      ctx.fillStyle = colorYou;
     }
-    
     else {
       if ((colorTransparency = Math.random().toFixed(1)) === 0) {
         colorTransparency = 0.1;
-      }  // непрозрачность должна быть больше 0
+      }
       ctx.fillStyle = 'rgba(' + colorOther + ',' + colorTransparency + ')';  // заливка с полученной непрозрачностью
     }
     // рисуем колонку гистограммы
