@@ -36,8 +36,7 @@ window.renderStatistics = function (ctx, names, times) {
       max = time;
     }
     // определяем индекс для игрока "Вы"
-    if ((names[i] === 'Вы') && (iYou < 0))
-    {
+    if ((names[i] === 'Вы') && (iYou < 0)) {
       iYou = i;
     }
 
@@ -51,20 +50,16 @@ window.renderStatistics = function (ctx, names, times) {
   var colorOther = '0,0,255';  // цвет для остальных игроков
   var colorTransparency = 1;
 
-  for (i = 0; i < times.length; i++)
-  {
+  for (i = 0; i < times.length; i++) {
     var colLeft = cloudLeft + 30 + (colWidth + colDistance) * i;  // координата Х для колонки
     var colHeight = times[i] * step;  // высота колонки
 
     // проверяем игрока на совпадение с "Вы"
-    if (i === iYou)
-    {
+    if (i === iYou) {
       ctx.fillStyle = colorYou;
     }
-    else
-    {
-      if ((colorTransparency = Math.random().toFixed(1)) === 0)
-      {
+    else {
+      if ((colorTransparency = Math.random().toFixed(1)) === 0) {
         colorTransparency = 0.1;
       }  // непрозрачность должна быть больше 0
       ctx.fillStyle = 'rgba(' + colorOther + ',' + colorTransparency + ')';  // заливка с полученной непрозрачностью
