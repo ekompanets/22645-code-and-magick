@@ -55,7 +55,8 @@ window.renderStatistics = function (ctx, names, times) {
     var colHeight = times[i] * step;  // высота колонки
 
     // проверяем игрока на совпадение с "Вы"
-    if (i === iYou) {
+    if (i === iYou)
+    {
       ctx.fillStyle = colorYou;
     }
     else
