@@ -43,7 +43,7 @@ window.renderStatistics = function (ctx, names, times) {
   }
   // задаем параметры гистограммы
   var histogramHeight = 150;
-  var step = histogramHeight / max.toFixed(0);
+  var step = histogramHeight / (max.toFixed(0) - 0);
   var colWidth = 40;
   var colDistance = 50;
   var colorYou = 'rgba(255,0,0,1)';  // цвет для игрока "Вы"
@@ -60,8 +60,8 @@ window.renderStatistics = function (ctx, names, times) {
       ctx.fillStyle = colorYou;
     }
     else {
-      while ((colorTransparency = Math.random().toFixed(1)) == 0) {};  // непрозрачность должна быть больше 0
-      ctx.fillStyle = 'rgba(' + colorOther + ',' + colorTransparency +')';  // заливка с полученной непрозрачностью
+      colorTransparency = Math.random().toFixed(1) + 0;  // непрозрачность должна быть больше 0
+      ctx.fillStyle = 'rgba(' + colorOther + ',' + colorTransparency + ')';  // заливка с полученной непрозрачностью
     }     
     // рисуем колонку гистограммы
     ctx.fillRect(colLeft, cloudBottom - 20, colWidth, -colHeight);
