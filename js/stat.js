@@ -29,8 +29,7 @@ window.renderStatistics = function (ctx, names, times) {
   var max = -1;
   var iYou = -1;
 
-  for (var i = 0; i < times.length; i++)
-  {
+  for (var i = 0; i < times.length; i++) {
     var time = times[i];
 
     if (time > max) {
@@ -64,7 +63,7 @@ window.renderStatistics = function (ctx, names, times) {
     }
     else
     {
-      if ((colorTransparency = Math.random().toFixed(1)) === 0 )
+      if ((colorTransparency = Math.random().toFixed(1)) === 0)
       {
         colorTransparency = 0.1;
       }  // непрозрачность должна быть больше 0
