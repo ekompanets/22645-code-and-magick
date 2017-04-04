@@ -55,12 +55,10 @@ window.renderStatistics = function (ctx, names, times) {
     var colHeight = times[i] * step;  // высота колонки
 
     // проверяем игрока на совпадение с "Вы"
-    if (i === iYou)
-    {
+    if (i === iYou) {
       ctx.fillStyle = colorYou;
     }
-    else
-    {
+    else {
       if ((colorTransparency = Math.random().toFixed(1)) === 0) {
         colorTransparency = 0.1;
       }
