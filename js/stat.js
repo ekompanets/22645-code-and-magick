@@ -59,10 +59,11 @@ window.renderStatistics = function (ctx, names, times) {
     if (i === iYou) {
       ctx.fillStyle = colorYou;
     }
-    else {
+    else 
+    {
       colorTransparency = Math.random().toFixed(1) + 0;  // непрозрачность должна быть больше 0
       ctx.fillStyle = 'rgba(' + colorOther + ',' + colorTransparency + ')';  // заливка с полученной непрозрачностью
-    }     
+    }
     // рисуем колонку гистограммы
     ctx.fillRect(colLeft, cloudBottom - 20, colWidth, -colHeight);
 
