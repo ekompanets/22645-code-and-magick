@@ -58,7 +58,6 @@ window.renderStatistics = function (ctx, names, times) {
 
   // ищем максимальный результат
   var maxResult = getMaxInArray(times);
-  
   // задаем параметры гистограммы
   var histogramHeight = 150;
   var step = histogramHeight / (maxResult.toFixed(0) - 0);
@@ -70,7 +69,6 @@ window.renderStatistics = function (ctx, names, times) {
   for (var i = 0; i < times.length; i++) {
     var colLeft = cloudLeft + 30 + (colWidth + colDistance) * i;  // координата Х для колонки
     var colHeight = times[i] * step;  // высота колонки
-    
     // рисуем колонку гистограммы
     drawRect(colLeft, cloudBottom - 20, colWidth, -colHeight, setColumnColor(names[i], colorYou, colorOther));
     // пишем имя внизу
