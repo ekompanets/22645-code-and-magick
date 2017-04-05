@@ -4,38 +4,37 @@
 window.renderStatistics = function (ctx, names, times) {
 
   // рисуем прямоугольник
-  var drawRect = function(x, y, width, height, color) {
+  var drawRect = function (x, y, width, height, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
-  }
+  };
   // выводим текст
-  var printText = function(text, x, y, color, font) {
+  var printText = function (text, x, y, color, font) {
     ctx.fillStyle = color;
     ctx.font = font;
     ctx.textBaseline = 'bottom';
     ctx.fillText(text, x, y);
-  }
+  };
   // получаем максимальный элемент массива
-  var getMaxInArray = function(array) {
+  var getMaxInArray = function (array) {
     var max = array[0];
     for (var i = 0; i < times.length; i++) {
       if (times[i] > max) {
         max = times[i];
       }
-    } 
+    }
     return max;
-  }
+  };
   // получаем непрозрачность
-  var getRandomTransparency = function(){
+  var getRandomTransparency = function () {
     var transparency = Math.random().toFixed(1);
-    return (transparency == 0) ? 0.1 : transparency;  
-  }
+    return (transparency > 0) ? transparency : 0.1;
+  };
   // устанавливаем цвет колонки
-  var setColumnColor = function(name, color1, color2) {
-    var colColor;
+  var setColumnColor = function (name, color1, color2) {
     // проверяем игрока на совпадение с "Вы"
     return (name === 'Вы') ? 'rgba(' + color1 + ', 1)' : 'rgba(' + color2 + ',' + getRandomTransparency() + ')';
-  }
+  };
 
   // параметры canvas
   var cloudX = 100;
@@ -59,7 +58,6 @@ window.renderStatistics = function (ctx, names, times) {
 
   // ищем максимальный результат
   var maxResult = getMaxInArray(times);
-
   
   // задаем параметры гистограммы
   var histogramHeight = 150;
@@ -68,8 +66,6 @@ window.renderStatistics = function (ctx, names, times) {
   var colDistance = 50;
   var colorYou = '255,0,0';  // цвет для игрока "Вы"
   var colorOther = '0,0,255';  // цвет для остальных игроков
-  var colorTransparency = 1;
-  var colColor;
 
   for (var i = 0; i < times.length; i++) {
     var colLeft = cloudLeft + 30 + (colWidth + colDistance) * i;  // координата Х для колонки
