@@ -1,8 +1,41 @@
-
 // stat.js
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
+
+  // рисуем прямоугольник
+  var drawRect = function(x, y, width, height, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, width, height);
+  }
+  // выводим текст
+  var printText = function(text, x, y, color, font) {
+    ctx.fillStyle = color;
+    ctx.font = font;
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(text, x, y);
+  }
+  // получаем максимальный элемент массива
+  var getMaxInArray = function(array) {
+    var max = array[0];
+    for (var i = 0; i < times.length; i++) {
+      if (times[i] > max) {
+        max = times[i];
+      }
+    } 
+    return max;
+  }
+  // получаем непрозрачность
+  var getRandomTransparency = function(){
+    var transparency = Math.random().toFixed(1);
+    return (transparency == 0) ? 0.1 : transparency;  
+  }
+  // устанавливаем цвет колонки
+  var setColumnColor = function(name, color1, color2) {
+    var colColor;
+    // проверяем игрока на совпадение с "Вы"
+    return (name === 'Вы') ? 'rgba(' + color1 + ', 1)' : 'rgba(' + color2 + ',' + getRandomTransparency() + ')';
+  }
 
   // параметры canvas
   var cloudX = 100;
@@ -13,63 +46,40 @@ window.renderStatistics = function (ctx, names, times) {
   var cloudBottom = cloudY + cloudHeight - 20;
 
   // рисуем тень
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-  ctx.fillRect(cloudX + 10, cloudY + 10, cloudWidth, cloudHeight);
+  drawRect(cloudX + 10, cloudY + 10, cloudWidth, cloudHeight, 'rgba(0, 0, 0, 0.7)');
   // рисуем облако
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(cloudX, cloudY, cloudWidth, cloudHeight);
+  drawRect(cloudX, cloudY, cloudWidth, cloudHeight, '#fff');
+
   // задаем параметры текста
-  var colorText = '#000';
-  ctx.fillStyle = colorText;
-  ctx.font = '16px PT Mono';
+  var textColor = '#000';
+  var textFont = '16px PT Mono';
   // пишем заголовки
-  ctx.fillText('Ура вы победили', cloudLeft, 40);
-  ctx.fillText('Список результатов:', cloudLeft, 60);
-  // поиск максимального результата и индекса игрока с этим результатом
-  var max = -1;
-  var iYou = -1;
+  printText('Ура вы победили', cloudLeft, 40, textColor, textFont);
+  printText('Список результатов:', cloudLeft, 60, textColor, textFont);
 
-  for (var i = 0; i < times.length; i++) {
-    var time = times[i];
+  // ищем максимальный результат
+  var maxResult = getMaxInArray(times);
 
-    if (time > max) {
-      max = time;
-    }
-    // определяем индекс для игрока "Вы"
-    if ((names[i] === 'Вы') && (iYou < 0)) {
-      iYou = i;
-    }
-
-  }
+  
   // задаем параметры гистограммы
   var histogramHeight = 150;
-  var step = histogramHeight / (max.toFixed(0) - 0);
+  var step = histogramHeight / (maxResult.toFixed(0) - 0);
   var colWidth = 40;
   var colDistance = 50;
-  var colorYou = 'rgba(255,0,0,1)';  // цвет для игрока "Вы"
+  var colorYou = '255,0,0';  // цвет для игрока "Вы"
   var colorOther = '0,0,255';  // цвет для остальных игроков
   var colorTransparency = 1;
+  var colColor;
 
-  for (i = 0; i < times.length; i++) {
+  for (var i = 0; i < times.length; i++) {
     var colLeft = cloudLeft + 30 + (colWidth + colDistance) * i;  // координата Х для колонки
     var colHeight = times[i] * step;  // высота колонки
-
-    // проверяем игрока на совпадение с "Вы"
-    if (i === iYou) {
-      ctx.fillStyle = colorYou;
-    } else {
-      if ((colorTransparency = Math.random().toFixed(1)) === 0) {
-        colorTransparency = 0.1;
-      }
-      ctx.fillStyle = 'rgba(' + colorOther + ',' + colorTransparency + ')';  // заливка с полученной непрозрачностью
-    }
+    
     // рисуем колонку гистограммы
-    ctx.fillRect(colLeft, cloudBottom - 20, colWidth, -colHeight);
-
-    ctx.fillStyle = colorText;
+    drawRect(colLeft, cloudBottom - 20, colWidth, -colHeight, setColumnColor(names[i], colorYou, colorOther));
     // пишем имя внизу
-    ctx.fillText(names[i], colLeft, cloudBottom);
+    printText(names[i], colLeft, cloudBottom, textColor);
     // пишем результат сверху
-    ctx.fillText(times[i].toFixed(0), colLeft, cloudBottom - 25 - colHeight);
+    printText(times[i].toFixed(0), colLeft, cloudBottom - 25 - colHeight, textColor);
   }
 };
