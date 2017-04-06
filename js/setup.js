@@ -55,7 +55,7 @@ for (var i = 0; i < numWizards; i++) {
       }
     }
   }
-};
+}
 
 var fragment = document.createDocumentFragment();
 // рисуем магов
