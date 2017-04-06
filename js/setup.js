@@ -18,21 +18,21 @@ var numWizards = 4;
 // получение случайного индекса из массива
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
-}
+};
 // пполучение случайного значения из массива
 var getRandomValueFromArray = function (array) {
   return array[getRandomInt(0, array.length - 1)];
-}
+};
 // создание мага
 var createWizard = function () {
   var newWizard = {
     fullName: getRandomValueFromArray(WIZARD_NAMES) + ' ' + getRandomValueFromArray(WIZARD_SURNAMES),
     coatColor: getRandomValueFromArray(COAT_COLORS),
     eyeColor: getRandomValueFromArray(EYES_COLORS)
-  }
+  };
   return newWizard;
-}
-// отрисовка мага
+};
+// отрисовка магами
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTEmplate.cloneNode(true);
 
@@ -41,12 +41,12 @@ var renderWizard = function (wizard) {
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyeColor;
 
   return wizardElement;
-}
+};
 // создаем магов
 for (var i = 0; i < numWizards; i++) {
   // создаем мага с проверкой на совпадение имен
   var sameName = true;
-  while (sameName)   {
+  while (sameName) {
     sameName = false;
     wizards[i] = createWizard();
     for (var j = 0; j < i; j++) {
@@ -54,12 +54,12 @@ for (var i = 0; i < numWizards; i++) {
         sameName = true;
       }
     }
-  }  
-}
+  }
+};
 
 var fragment = document.createDocumentFragment();
 // рисуем магов
-for (var i = 0; i < numWizards; i++) {
+for (i = 0; i < numWizards; i++) {
   fragment.appendChild(renderWizard(wizards[i]));
 }
 similarListElement.appendChild(fragment);
