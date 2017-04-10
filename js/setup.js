@@ -11,6 +11,7 @@ var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'К
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 // массив магов
 var wizards = [];
 // количество магов
@@ -65,3 +66,76 @@ for (i = 0; i < numWizards; i++) {
 similarListElement.appendChild(fragment);
 // отображаем блок с магами
 document.querySelector('.setup-similar').classList.remove('hidden');
+
+
+// СОБЫТИЯ
+var setupOpen = document.querySelector('.setup-open');
+var setup = document.querySelector('.setup');
+var setupClose = setup.querySelector('.setup-close');
+
+var ENTER_KEY_CODE = 13;
+
+var onPopupEscPress = function(evt) {
+  if (evt.keyCode === 27) {
+    closePopup();
+  }
+};
+
+var openPopup = function() {
+  setup.classList.remove('hidden');
+
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function() {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+// Нажатие на элемент .setup-open удаляет класс hidden у блока setup
+setupOpen.addEventListener('click', function() {
+  openPopup();
+}); 
+
+setupOpen.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    closePopup();
+  }
+});
+
+// Нажатие на элемент .setup-close, расположенный внутри блока setup возвращает ему класс hidden.
+setupClose.addEventListener('click', function() {
+  closePopup();
+});
+
+var wizard = document.querySelector('.wizard');
+var wizardCoat = wizard.querySelector('.wizard-coat');
+var wizardEyes = wizard.querySelector('.wizard-eyes');
+var wizardFireball = document.querySelector('.setup-fireball-wrap');
+
+// получение случайного индекса из массива
+var getRandomInt = function (min, max) {
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+};
+// пполучение случайного значения из массива
+var getRandomValueFromArray = function (array) {
+  return array[getRandomInt(0, array.length - 1)];
+};
+
+wizardCoat.addEventListener('click', function (evt) {
+  wizardCoat.style.fill = getRandomValueFromArray(COAT_COLORS);
+});
+
+wizardEyes.addEventListener('click', function (evt) {
+  wizardEyes.style.fill = getRandomValueFromArray(EYES_COLORS);
+});
+
+wizardFireball.addEventListener('click', function (evt) {
+  wizardFireball.style.backgroundColor = getRandomValueFromArray(FIREBALL_COLORS);
+});
