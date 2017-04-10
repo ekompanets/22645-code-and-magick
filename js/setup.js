@@ -69,73 +69,86 @@ document.querySelector('.setup-similar').classList.remove('hidden');
 
 
 // СОБЫТИЯ
-var setupOpen = document.querySelector('.setup-open');
 var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
-
+var setupInput = setup.querySelector('.setup-user-name');
+var setupSubmit = setup.querySelector('.setup-submit');
+// проверка на нажатие ENTER
 var ENTER_KEY_CODE = 13;
-
+var isEnterKeyCode = function (evt) {
+  return evt.keyCode === ENTER_KEY_CODE;
+};
+// закрытие попапа по нажатию ESC
 var onPopupEscPress = function(evt) {
   if (evt.keyCode === 27) {
     closePopup();
   }
 };
-
+// открытие попапа
 var openPopup = function() {
   setup.classList.remove('hidden');
-
   document.addEventListener('keydown', onPopupEscPress);
 };
-
+// закрытие попапа
 var closePopup = function() {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
 };
-
-// Нажатие на элемент .setup-open удаляет класс hidden у блока setup
+// нажатие на элемент .setup-open удаляет класс hidden у блока setup
 setupOpen.addEventListener('click', function() {
   openPopup();
 }); 
-
+// открытие по нажатию ENTER
 setupOpen.addEventListener('keydown', function(evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
+  if (isEnterKeyCode(evt)) {
     openPopup();
   }
 });
-
+// закрытие по нажатию ENTER
 setupClose.addEventListener('keydown', function(evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
+  if (isEnterKeyCode(evt)) {
     closePopup();
   }
 });
 
-// Нажатие на элемент .setup-close, расположенный внутри блока setup возвращает ему класс hidden.
+// нажатие на элемент .setup-close, расположенный внутри блока setup возвращает ему класс hidden.
 setupClose.addEventListener('click', function() {
   closePopup();
 });
-
+// нажатие в поле имя пользователя
+setupInput.addEventListener('keydown', function (evt) {
+  evt.stopPropagation();
+});
+// нажатие на кнопку Сохранить
+setupSubmit.addEventListener('click', function (evt) {
+  if (setupInput.validity.valid) {
+    evt.preventDefault();
+    closePopup();
+  }
+});
+// переменные для работы с магом
 var wizard = document.querySelector('.wizard');
 var wizardCoat = wizard.querySelector('.wizard-coat');
 var wizardEyes = wizard.querySelector('.wizard-eyes');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
-
 // получение случайного индекса из массива
 var getRandomInt = function (min, max) {
-  return Math.floor(Math.random() * (max + 1 - min)) + min;
+  return Math.floor(Math.random() * (++max - min)) + min;
 };
 // пполучение случайного значения из массива
 var getRandomValueFromArray = function (array) {
   return array[getRandomInt(0, array.length - 1)];
 };
-
+// изменение цвета пальто мага
 wizardCoat.addEventListener('click', function (evt) {
   wizardCoat.style.fill = getRandomValueFromArray(COAT_COLORS);
 });
-
+// изменение цвета глаз мага
 wizardEyes.addEventListener('click', function (evt) {
   wizardEyes.style.fill = getRandomValueFromArray(EYES_COLORS);
 });
-
+// изменение цвета глаз мага
 wizardFireball.addEventListener('click', function (evt) {
   wizardFireball.style.backgroundColor = getRandomValueFromArray(FIREBALL_COLORS);
 });
