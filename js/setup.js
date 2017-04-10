@@ -18,7 +18,7 @@ var wizards = [];
 var numWizards = 4;
 // получение случайного индекса из массива
 var getRandomInt = function (min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (++max - min)) + min;
 };
 // пполучение случайного значения из массива
 var getRandomValueFromArray = function (array) {
@@ -80,40 +80,40 @@ var isEnterKeyCode = function (evt) {
   return evt.keyCode === ENTER_KEY_CODE;
 };
 // закрытие попапа по нажатию ESC
-var onPopupEscPress = function(evt) {
+var onPopupEscPress = function (evt) {
   if (evt.keyCode === 27) {
     closePopup();
   }
 };
 // открытие попапа
-var openPopup = function() {
+var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
 };
 // закрытие попапа
-var closePopup = function() {
+var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
 };
 // нажатие на элемент .setup-open удаляет класс hidden у блока setup
-setupOpen.addEventListener('click', function() {
+setupOpen.addEventListener('click', function () {
   openPopup();
-}); 
+});
 // открытие по нажатию ENTER
-setupOpen.addEventListener('keydown', function(evt) {
+setupOpen.addEventListener('keydown', function (evt) {
   if (isEnterKeyCode(evt)) {
     openPopup();
   }
 });
 // закрытие по нажатию ENTER
-setupClose.addEventListener('keydown', function(evt) {
+setupClose.addEventListener('keydown', function (evt) {
   if (isEnterKeyCode(evt)) {
     closePopup();
   }
 });
 
 // нажатие на элемент .setup-close, расположенный внутри блока setup возвращает ему класс hidden.
-setupClose.addEventListener('click', function() {
+setupClose.addEventListener('click', function () {
   closePopup();
 });
 // нажатие в поле имя пользователя
@@ -132,14 +132,6 @@ var wizard = document.querySelector('.wizard');
 var wizardCoat = wizard.querySelector('.wizard-coat');
 var wizardEyes = wizard.querySelector('.wizard-eyes');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
-// получение случайного индекса из массива
-var getRandomInt = function (min, max) {
-  return Math.floor(Math.random() * (++max - min)) + min;
-};
-// пполучение случайного значения из массива
-var getRandomValueFromArray = function (array) {
-  return array[getRandomInt(0, array.length - 1)];
-};
 // изменение цвета пальто мага
 wizardCoat.addEventListener('click', function (evt) {
   wizardCoat.style.fill = getRandomValueFromArray(COAT_COLORS);
