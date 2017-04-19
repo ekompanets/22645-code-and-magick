@@ -39,5 +39,5 @@ window.utils = (function () {
     isEnterKeyCode: isEnterKeyCode,
     isEscKeyCode: isEscKeyCode,
     toggleClass: toggleClass
-  }:
+  };
 })();

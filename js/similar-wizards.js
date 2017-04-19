@@ -14,7 +14,7 @@ window.similarWizards = (function () {
   };
 
   var renderWizardsBlock = function (num) {
-    var wizards = createWizardSet(num);
+    var wizards = window.createWizardSet(num);
     var similarListElement = document.querySelector('.setup-similar-list');
     var fragment = document.createDocumentFragment();
     // рисуем магов
