@@ -22,7 +22,6 @@ window.similarWizards = (function () {
       fragment.appendChild(renderWizard(wizards[i]));
     }
     similarListElement.appendChild(fragment);
-  }
-  
+  };
   return renderWizardsBlock;
 })();

@@ -12,9 +12,9 @@
 
   var colorizeWizardElement = function (element, colorArray, callback) {
     element.addEventListener('click', function () {
-      callback(window.utils.getRandomValueFromArray(colorArray))
+      callback(window.utils.getRandomValueFromArray(colorArray));
     });
-  }
+  };
   // изменение цвета пальто мага
   colorizeWizardElement(wizardCoat, COAT_COLORS, function (color) {
     wizardCoat.style.fill = color;

@@ -65,4 +65,4 @@
 
   // отображаем блок с магами
   window.utils.toggleClass(document.querySelector('.setup-similar'), 'hidden', false);
-}) ();
+})();
