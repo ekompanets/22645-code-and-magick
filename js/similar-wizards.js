@@ -1,10 +1,8 @@
 'use strict';
 
- window.similarWizards = (function () {
-  
+window.similarWizards = (function () {
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content;
- 
-  // отрисовка магами
+  // отрисовка магов
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 

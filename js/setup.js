@@ -9,22 +9,21 @@
   var setupInput = setup.querySelector('.setup-user-name');
   var setupSubmit = setup.querySelector('.setup-submit');
 
-  utils.toggleClass(setup, 'hidden', false);
-  
+  window.utils.toggleClass(setup, 'hidden', false);
   // закрытие попапа по нажатию ESC
   var onPopupEscPress = function (evt) {
-    if (utils.isEscKeyCode(evt)) {
+    if (window.utils.isEscKeyCode(evt)) {
       closePopup();
     }
   };
   // открытие попапа
   var openPopup = function () {
-    utils.toggleClass(setup, 'hidden', false);
+    window.utils.toggleClass(setup, 'hidden', false);
     document.addEventListener('keydown', onPopupEscPress);
   };
   // закрытие попапа
   var closePopup = function () {
-    utils.toggleClass(setup, 'hidden', true);
+    window.utils.toggleClass(setup, 'hidden', true);
     document.removeEventListener('keydown', onPopupEscPress);
   };
   // нажатие на элемент .setup-open удаляет класс hidden у блока setup
@@ -33,13 +32,13 @@
   });
   // открытие по нажатию ENTER
   setupOpen.addEventListener('keydown', function (evt) {
-    if (utils.isEnterKeyCode(evt)) {
+    if (window.utils.isEnterKeyCode(evt)) {
       openPopup();
     }
   });
   // закрытие по нажатию ENTER
   setupClose.addEventListener('keydown', function (evt) {
-    if (utils.isEnterKeyCode(evt)) {
+    if (window.utils.isEnterKeyCode(evt)) {
       closePopup();
     }
   });
@@ -65,6 +64,5 @@
   window.similarWizards(NUM_WIZARDS);
 
   // отображаем блок с магами
-  utils.toggleClass(document.querySelector('.setup-similar'), 'hidden', false);
-
+  window.utils.toggleClass(document.querySelector('.setup-similar'), 'hidden', false);
 }) ();

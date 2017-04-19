@@ -13,28 +13,27 @@ window.createWizardSet = function (numWizards) {
   // создание мага
   var createWizard = function () {
     var newWizard = {
-      fullName: utils.getRandomValueFromArray(WIZARD_NAMES) + ' ' + utils.getRandomValueFromArray(WIZARD_SURNAMES),
-      coatColor: utils.getRandomValueFromArray(COAT_COLORS),
-      eyeColor: utils.getRandomValueFromArray(EYES_COLORS)
+      fullName: window.utils.getRandomValueFromArray(WIZARD_NAMES) + ' ' + window.utils.getRandomValueFromArray(WIZARD_SURNAMES),
+      coatColor: window.utils.getRandomValueFromArray(COAT_COLORS),
+      eyeColor: window.utils.getRandomValueFromArray(EYES_COLORS)
     };
     return newWizard;
   };
 
   // создаем магов
-     
-    for (var i = 0; i < numWizards; i++) {
-      // создаем мага с проверкой на совпадение имен
-      var sameName = true;
-      while (sameName) {
-        sameName = false;
-        wizards[i] = createWizard();
-        for (var j = 0; j < i; j++) {
-          if (wizards[i].fullName === wizards[j].fullName) {
-            sameName = true;
-          }
+  for (var i = 0; i < numWizards; i++) {
+    // создаем мага с проверкой на совпадение имен
+    var sameName = true;
+    while (sameName) {
+      sameName = false;
+      wizards[i] = createWizard();
+      for (var j = 0; j < i; j++) {
+        if (wizards[i].fullName === wizards[j].fullName) {
+          sameName = true;
         }
       }
     }
+  }
 
   return wizards;
 };
