@@ -7,13 +7,14 @@
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = setup.querySelector('.setup-close');
   var setupInput = setup.querySelector('.setup-user-name');
-  var setupSubmit = setup.querySelector('.setup-submit'); 
+  var setupSubmit = setup.querySelector('.setup-submit');
 
   window.utils.toggleClass(setup, 'hidden', false);
+  // стартовые координаты окна 
   var setupCoords = {
-      x: setup.offsetLeft,
-      y: setup.offsetTop
-    };
+    x: setup.offsetLeft,
+    y: setup.offsetTop
+  };
 
   // закрытие попапа по нажатию ESC
   var onPopupEscPress = function (evt) {
