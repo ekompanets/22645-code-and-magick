@@ -2,67 +2,58 @@
 'use strict';
 
 (function () {
-  // СОБЫТИЯ
-  var setup = document.querySelector('.setup');
-  var setupOpen = document.querySelector('.setup-open');
-  var setupClose = setup.querySelector('.setup-close');
-  var setupInput = setup.querySelector('.setup-user-name');
-  var setupSubmit = setup.querySelector('.setup-submit');
+  // перетаскивания элементов из одного положения в другое
+  var shop = document.querySelector('.setup-artifacts-shop');
+  var draggedItem = null;
+  var dragParent = null;
 
-  window.utils.toggleClass(setup, 'hidden', false);
-  // закрытие попапа по нажатию ESC
-  var onPopupEscPress = function (evt) {
-    if (window.utils.isEscKeyCode(evt)) {
-      closePopup();
-    }
-  };
-  // открытие попапа
-  var openPopup = function () {
-    window.utils.toggleClass(setup, 'hidden', false);
-    document.addEventListener('keydown', onPopupEscPress);
-  };
-  // закрытие попапа
-  var closePopup = function () {
-    window.utils.toggleClass(setup, 'hidden', true);
-    document.removeEventListener('keydown', onPopupEscPress);
-  };
-  // нажатие на элемент .setup-open удаляет класс hidden у блока setup
-  setupOpen.addEventListener('click', function () {
-    openPopup();
-  });
-  // открытие по нажатию ENTER
-  setupOpen.addEventListener('keydown', function (evt) {
-    if (window.utils.isEnterKeyCode(evt)) {
-      openPopup();
+  // нужно найти тот элемент в который мы будем переносить исходные элементы setup-atifacts
+  var artifacts = document.querySelector('.setup-artifacts');
+
+  // при перетаскивании из зоны окуда мы тянем нам нужно запомнить тот элемент который мы тянем, а также сообщить браузеру дополнительную информацию о перетаскиваемом объекте dataTransfer
+  shop.addEventListener('dragstart', function (evt) {
+    if (evt.target.tagName.toLowerCase() === 'img') {
+      draggedItem = evt.target.cloneNode(true);
+      dragParent = evt.target.parentNode;
+      evt.dataTransfer.setData('text/plain', evt.target.alt);
+      artifacts.classList.add('enable-to-drop');
+
     }
   });
-  // закрытие по нажатию ENTER
-  setupClose.addEventListener('keydown', function (evt) {
-    if (window.utils.isEnterKeyCode(evt)) {
-      closePopup();
-    }
+  // проверка на наличие артефакта в ячейке
+  var enableToDrop = function (targetCell) {
+    return ((targetCell.tagName.toLowerCase() === 'div') && (targetCell.childNodes.length === 0))
+  }
+  
+  // нужно обработать событие dragover и отменить его действие по-умолчанию. 
+  // По-умолчанию браузер запрещает перетаскивать что попало куда попало, 
+  // поэтому такое поведение следует отменить первым делом
+  artifacts.addEventListener('dragover', function (evt) {
+    evt.preventDefault();
+    return false;
   });
 
-  // нажатие на элемент .setup-close, расположенный внутри блока setup возвращает ему класс hidden.
-  setupClose.addEventListener('click', function () {
-    closePopup();
+  // событие броска на нужных элементах. 
+  // события dragenter и dragleave, 
+  // при помощи которых можно указать элементы над которыми сейчас находится курсор при перетаскивании. 
+  artifacts.addEventListener('drop', function (evt) {
+    if (enableToDrop(evt.target)) {
+      evt.target.style.backgroundColor = '';
+      evt.target.appendChild(draggedItem);
+      artifacts.classList.remove('enable-to-drop');
+    }
+    
   });
-  // нажатие в поле имя пользователя
-  setupInput.addEventListener('keydown', function (evt) {
-    evt.stopPropagation();
-  });
-  // нажатие на кнопку Сохранить
-  setupSubmit.addEventListener('click', function (evt) {
-    if (setupInput.validity.valid) {
+
+  artifacts.addEventListener('dragenter', function (evt) {
+    if (enableToDrop(evt.target)) {
+      evt.target.style.backgroundColor = 'yellow';
       evt.preventDefault();
-      closePopup();
     }
   });
 
-  var NUM_WIZARDS = 4;
-
-  window.similarWizards(NUM_WIZARDS);
-
-  // отображаем блок с магами
-  window.utils.toggleClass(document.querySelector('.setup-similar'), 'hidden', false);
+  artifacts.addEventListener('dragleave', function (evt) {
+    evt.target.style.backgroundColor = '';
+    evt.preventDefault();
+  });
 })();
