@@ -21,8 +21,8 @@
   var enableToDrop = function (targetCell) {
     return ((targetCell.tagName.toLowerCase() === 'div') && (targetCell.childNodes.length === 0));
   };
-  // нужно обработать событие dragover и отменить его действие по-умолчанию. 
-  // По-умолчанию браузер запрещает перетаскивать что попало куда попало, 
+  // нужно обработать событие dragover и отменить его действие по-умолчанию.
+  // По-умолчанию браузер запрещает перетаскивать что попало куда попало,
   // поэтому такое поведение следует отменить первым делом
   artifacts.addEventListener('dragover', function (evt) {
     evt.preventDefault();
@@ -36,7 +36,7 @@
       evt.target.style.backgroundColor = '';
       evt.target.appendChild(draggedItem);
       artifacts.classList.remove('enable-to-drop');
-    };
+    }
   });
   artifacts.addEventListener('dragenter', function (evt) {
     if (enableToDrop(evt.target)) {
