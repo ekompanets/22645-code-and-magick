@@ -13,7 +13,6 @@
   shop.addEventListener('dragstart', function (evt) {
     if (evt.target.tagName.toLowerCase() === 'img') {
       draggedItem = evt.target.cloneNode(true);
-      dragParent = evt.target.parentNode;
       evt.dataTransfer.setData('text/plain', evt.target.alt);
       artifacts.classList.add('enable-to-drop');
     }
@@ -21,7 +20,7 @@
   // проверка на наличие артефакта в ячейке
   var enableToDrop = function (targetCell) {
     return ((targetCell.tagName.toLowerCase() === 'div') && (targetCell.childNodes.length === 0));
-  };  
+  };
   // нужно обработать событие dragover и отменить его действие по-умолчанию. 
   // По-умолчанию браузер запрещает перетаскивать что попало куда попало, 
   // поэтому такое поведение следует отменить первым делом
@@ -29,15 +28,15 @@
     evt.preventDefault();
     return false;
   });
-  // событие броска на нужных элементах. 
-  // события dragenter и dragleave, 
-  // при помощи которых можно указать элементы над которыми сейчас находится курсор при перетаскивании. 
+  // событие броска на нужных элементах.
+  // события dragenter и dragleave,
+  // при помощи которых можно указать элементы над которыми сейчас находится курсор при перетаскивании.
   artifacts.addEventListener('drop', function (evt) {
     if (enableToDrop(evt.target)) {
       evt.target.style.backgroundColor = '';
       evt.target.appendChild(draggedItem);
       artifacts.classList.remove('enable-to-drop');
-    }    
+    };
   });
   artifacts.addEventListener('dragenter', function (evt) {
     if (enableToDrop(evt.target)) {
