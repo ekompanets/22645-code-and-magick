@@ -10,7 +10,7 @@
   var setupSubmit = setup.querySelector('.setup-submit');
 
   window.utils.toggleClass(setup, 'hidden', false);
-  // стартовые координаты окна 
+  // стартовые координаты окна
   var setupCoords = {
     x: setup.offsetLeft,
     y: setup.offsetTop
